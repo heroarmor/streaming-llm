@@ -1,0 +1,13 @@
+bash ruler_run.sh llama-3.1-8b synthetic Quest 32768 niah_single_1 bf16 -1 -1 cuda:1
+bash ruler_run.sh llama-3.1-8b synthetic Quest 32768 niah_single_2 bf16 -1 -1 cuda:1
+bash ruler_run.sh llama-3.1-8b synthetic Quest 32768 niah_single_3 bf16 -1 -1 cuda:1
+bash ruler_run.sh llama-3.1-8b synthetic Quest 32768 niah_multikey_1 bf16 -1 -1 cuda:1
+bash ruler_run.sh llama-3.1-8b synthetic Quest 32768 niah_multikey_2 bf16 -1 -1 cuda:1
+bash ruler_run.sh llama-3.1-8b synthetic Quest 32768 niah_multikey_3 bf16 -1 -1 cuda:1
+bash ruler_run.sh llama-3.1-8b synthetic Quest 32768 niah_multivalue bf16 -1 -1 cuda:1
+bash ruler_run.sh llama-3.1-8b synthetic Quest 32768 niah_multiquery bf16 -1 -1 cuda:1
+bash ruler_run.sh llama-3.1-8b synthetic Quest 32768 vt bf16 -1 -1 cuda:1
+bash ruler_run.sh llama-3.1-8b synthetic Quest 32768 cwe bf16 -1 -1 cuda:1
+bash ruler_run.sh llama-3.1-8b synthetic Quest 32768 fwe bf16 -1 -1 cuda:1
+bash ruler_run.sh llama-3.1-8b synthetic Quest 32768 qa_1 bf16 -1 -1 cuda:1
+bash ruler_run.sh llama-3.1-8b synthetic Quest 32768 qa_2 bf16 -1 -1 cuda:1

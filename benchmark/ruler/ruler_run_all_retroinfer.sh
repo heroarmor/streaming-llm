@@ -1,0 +1,13 @@
+bash ruler_run.sh llama-3.1-8b synthetic RetroInfer 16384 niah_single_1 bf16 0.05 0.7 cuda:0
+bash ruler_run.sh llama-3.1-8b synthetic RetroInfer 16384 niah_single_2 bf16 0.05 0.7 cuda:0
+bash ruler_run.sh llama-3.1-8b synthetic RetroInfer 16384 niah_single_3 bf16 0.05 0.7 cuda:0
+bash ruler_run.sh llama-3.1-8b synthetic RetroInfer 16384 niah_multikey_1 bf16 0.05 0.7 cuda:0
+bash ruler_run.sh llama-3.1-8b synthetic RetroInfer 16384 niah_multikey_2 bf16 0.05 0.7 cuda:0
+bash ruler_run.sh llama-3.1-8b synthetic RetroInfer 16384 niah_multikey_3 bf16 0.05 0.7 cuda:0
+bash ruler_run.sh llama-3.1-8b synthetic RetroInfer 16384 niah_multivalue bf16 0.05 0.7 cuda:0
+bash ruler_run.sh llama-3.1-8b synthetic RetroInfer 16384 niah_multiquery bf16 0.05 0.7 cuda:0
+bash ruler_run.sh llama-3.1-8b synthetic RetroInfer 16384 vt bf16 0.05 0.7 cuda:0
+bash ruler_run.sh llama-3.1-8b synthetic RetroInfer 16384 cwe bf16 0.05 0.7 cuda:0
+bash ruler_run.sh llama-3.1-8b synthetic RetroInfer 16384 fwe bf16 0.05 0.7 cuda:0
+bash ruler_run.sh llama-3.1-8b synthetic RetroInfer 16384 qa_1 bf16 0.05 0.7 cuda:0
+bash ruler_run.sh llama-3.1-8b synthetic RetroInfer 16384 qa_2 bf16 0.05 0.7 cuda:0

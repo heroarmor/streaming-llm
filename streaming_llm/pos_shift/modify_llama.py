@@ -120,39 +120,26 @@ def _modern_pos_shift_forward(
     q_cos, q_sin = rotary_emb(query_states, query_position_ids)
     query_states = _apply_rotary_single(query_states, q_cos, q_sin)
 
-    # --- Attention -------------------------------------------------------
+    # --- Attention (SDPA, memory-efficient for long contexts) -----------
     key_states_expanded = repeat_kv(key_states, self.num_key_value_groups)
     value_states_expanded = repeat_kv(value_states, self.num_key_value_groups)
 
-    scaling = self.head_dim ** -0.5
-    attn_weights = torch.matmul(
-        query_states, key_states_expanded.transpose(2, 3)
-    ) * scaling
-
-    if attention_mask is not None:
-        # attention_mask may have been computed for a different kv_seq_len
-        # (e.g., if cache was evicted). Truncate/pad if needed.
-        if attention_mask.shape[-1] > kv_seq_len:
-            attention_mask = attention_mask[:, :, :, :kv_seq_len]
-        elif attention_mask.shape[-1] < kv_seq_len:
-            # Build a simple causal mask
-            causal_mask = torch.triu(
-                torch.full((q_len, kv_seq_len), float("-inf"), device=query_states.device),
-                diagonal=kv_seq_len - q_len + 1,
-            )
-            attention_mask = causal_mask.unsqueeze(0).unsqueeze(0)
-        attn_weights = attn_weights + attention_mask
-
-    attn_weights = F.softmax(attn_weights, dim=-1, dtype=torch.float32).to(
-        query_states.dtype
+    # Ignore model's attention_mask — we handle masking ourselves:
+    #   Prefill (q_len == kv_len): causal mask needed
+    #   Decode  (q_len == 1):      attend to all cached keys, no mask
+    attn_output = F.scaled_dot_product_attention(
+        query_states,
+        key_states_expanded,
+        value_states_expanded,
+        attn_mask=None,
+        is_causal=(q_len == kv_seq_len),
     )
-    attn_output = torch.matmul(attn_weights, value_states_expanded)
 
     attn_output = attn_output.transpose(1, 2).contiguous()
     attn_output = attn_output.reshape(*input_shape, -1)
     attn_output = self.o_proj(attn_output)
 
-    return attn_output, attn_weights
+    return attn_output, None
 
 
 # ===================================================================

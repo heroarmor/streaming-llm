@@ -20,7 +20,7 @@ WORKER_ID=${1:?Usage: $0 <worker_id 0-3> [device]}
 DEVICE=${2:-cuda:0}
 MODEL="llama-3.1-8b"
 START=4
-NUM_WORKERS=4
+NUM_WORKERS=2
 
 # ---- Cache model weights in /tmp to save home space ----
 export HF_HOME="/tmp/hf_cache"
@@ -46,7 +46,7 @@ if [ -f "$HOME/.cache/huggingface/token" ] && [ ! -f "$HF_HOME/token" ]; then
 fi
 
 # ---- Build all jobs: 3 contexts × 13 tasks = 39 jobs ----
-CONTEXTS=(16384 32768 65536)
+CONTEXTS=(65536)
 
 TASKS=(
     niah_single_1
